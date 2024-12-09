@@ -471,7 +471,7 @@ ESymSolverStatus PardisoMKLSolverInterface::Factorization(
          PHASE = 11;
 
          Jnlst().Printf(J_DETAILED, J_LINEAR_ALGEBRA,
-                        "Calling Pardiso for symbolic factorization.\n");
+                        "Calling Pardiso for symbolic factorization (PHASE=%d).\n", PHASE);
          IPOPT_LAPACK_FUNC(pardiso, PARDISO)(PT_, &MAXFCT_, &MNUM_, &MTYPE_,
                                              &PHASE, &N, a_, ia, ja, &PERM,
                                              &NRHS, IPARM_, &MSGLVL_, &B, &X, &ERROR, DPARM_);
@@ -509,7 +509,7 @@ ESymSolverStatus PardisoMKLSolverInterface::Factorization(
          IpData().TimingStats().LinearSystemFactorization().Start();
       }
       Jnlst().Printf(J_MOREDETAILED, J_LINEAR_ALGEBRA,
-                     "Calling Pardiso for factorization.\n");
+                     "Calling Pardiso for factorization (PHASE=%d).\n", PHASE);
       // Dump matrix to file, and count number of solution steps.
       if( HaveIpData() )
       {
@@ -641,6 +641,9 @@ ESymSolverStatus PardisoMKLSolverInterface::Solve(
    Index PERM = 0;   // This should not be accessed by Pardiso
    Index NRHS = nrhs;
    Number* X = new Number[nrhs * dim_];
+
+   Jnlst().Printf(J_MOREDETAILED, J_LINEAR_ALGEBRA,
+                  "Calling Pardiso to solve (PHASE=%d).\n", PHASE);
 
    Number* ORIG_RHS = new Number[nrhs * dim_];
    Index ERROR;
