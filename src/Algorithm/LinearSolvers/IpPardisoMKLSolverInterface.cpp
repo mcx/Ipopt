@@ -233,7 +233,7 @@ bool PardisoMKLSolverInterface::InitializeImpl(
    IPARM_[5] = 1;// Overwrite right-hand side
    IPARM_[7] = max_iterref_steps;
    IPARM_[9] = 12;// pivot perturbation (as higher as less perturbation)
-   IPARM_[10] = 2;// enable scaling (recommended for interior-point indefinite matrices)
+   IPARM_[10] = 2;// enable scaling (recommended for interior-point indefinite matrices)  //FIXME there is no value 2 for this option
    IPARM_[12] = (int)match_strat_;// enable matching (recommended, as above)
    IPARM_[20] = 3;// bunch-kaufman pivoting
    IPARM_[23] = 1;// parallel fac
