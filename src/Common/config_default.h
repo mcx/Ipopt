@@ -59,7 +59,6 @@
 
 #ifdef _MSC_VER
 #define IPOPT_HAS_RAND 1
-#define IPOPT_HAS_STD__RAND 1
 #define IPOPT_HAS_VA_COPY 1
 #endif
 

@@ -123,9 +123,6 @@
 /* Define to 1 if the Spral package is available */
 #undef IPOPT_HAS_SPRAL
 
-/* Define to 1 if function std::rand is available */
-#undef IPOPT_HAS_STD__RAND
-
 /* Define to 1 if va_copy is available */
 #undef IPOPT_HAS_VA_COPY
 
