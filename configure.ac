@@ -310,9 +310,13 @@ AC_CHECK_DECL([va_copy],[AC_DEFINE([IPOPT_HAS_VA_COPY],[1],
 # Secure C11 library functions #
 ################################
 
-AC_CHECK_DECL([fopen_s],
+AC_CHECK_DECL([fopen_s(FILE**, const char*, const char*)],
   [AC_DEFINE([IPOPT_HAS_FOPEN_S],[1],[Define to 1 if function fopen_s is available])],,
   [#include <cstdio>])
+
+AC_CHECK_DECL([getenv_s(size_t*, char*, rsize_t, const char*)],
+  [AC_DEFINE([IPOPT_HAS_GETENV_S],[1],[Define to 1 if function getenv_s is available])],,
+  [#include <cstdlib>])
 
 ###########################
 # Random number generator #

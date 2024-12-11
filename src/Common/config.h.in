@@ -104,6 +104,9 @@
 /* Define to 1 if function fopen_s is available */
 #undef IPOPT_HAS_FOPEN_S
 
+/* Define to 1 if function getenv_s is available */
+#undef IPOPT_HAS_GETENV_S
+
 /* Define to 1 if HSL is available. */
 #undef IPOPT_HAS_HSL
 

@@ -28162,12 +28162,23 @@ fi
 # Secure C11 library functions #
 ################################
 
-ac_fn_check_decl "$LINENO" "fopen_s" "ac_cv_have_decl_fopen_s" "#include <cstdio>
+as_ac_Symbol=`printf "%s\n" "ac_cv_have_decl_fopen_s(FILE**, const char*, const char*)" | sed "$as_sed_sh"`
+ac_fn_check_decl "$LINENO" "fopen_s(FILE**, const char*, const char*)" "$as_ac_Symbol" "#include <cstdio>
 " "$ac_cxx_undeclared_builtin_options" "CXXFLAGS"
-if test "x$ac_cv_have_decl_fopen_s" = xyes
+if eval test \"x\$"$as_ac_Symbol"\" = x"yes"
 then :
 
 printf "%s\n" "#define IPOPT_HAS_FOPEN_S 1" >>confdefs.h
+
+fi
+
+as_ac_Symbol=`printf "%s\n" "ac_cv_have_decl_getenv_s(size_t*, char*, rsize_t, const char*)" | sed "$as_sed_sh"`
+ac_fn_check_decl "$LINENO" "getenv_s(size_t*, char*, rsize_t, const char*)" "$as_ac_Symbol" "#include <cstdlib>
+" "$ac_cxx_undeclared_builtin_options" "CXXFLAGS"
+if eval test \"x\$"$as_ac_Symbol"\" = x"yes"
+then :
+
+printf "%s\n" "#define IPOPT_HAS_GETENV_S 1" >>confdefs.h
 
 fi
 
@@ -28387,7 +28398,7 @@ else case e in #(
 JAVA_TEST=Test.java
 CLASS_TEST=Test.class
 cat << \EOF > $JAVA_TEST
-/* #line 28390 "configure" */
+/* #line 28401 "configure" */
 public class Test {
 }
 EOF

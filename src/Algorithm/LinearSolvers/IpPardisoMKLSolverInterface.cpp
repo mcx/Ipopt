@@ -356,20 +356,29 @@ void write_iajaa_matrix(
    int          sol_cnt
 )
 {
+#ifdef IPOPT_HAS_GETENV_S
+   if( getenv_s(NULL, NULL, 0, "IPOPT_WRITE_MAT") == 0 )
+#else
    if( getenv("IPOPT_WRITE_MAT") )
+#endif
    {
       /* Write header */
       char mat_name[128];
-      const char* mat_pref;
 
       Index NNZ = ia[N] - 1;
       Index i;
 
-      mat_pref = getenv("IPOPT_WRITE_PREFIX");
+#ifdef IPOPT_HAS_GETENV_S
+      char mat_pref[32];
+      if( getenv_s(NULL, mat_pref, sizeof(mat_pref), "IPOPT_WRITE_PREFIX") != 0 )
+         memcpy(mat_pref, "mat-ipopt", 10);
+#else
+      const char* mat_pref = getenv("IPOPT_WRITE_PREFIX");
       if( mat_pref == NULL )
       {
          mat_pref = "mat-ipopt";
       }
+#endif
 
       Snprintf(mat_name, 127, "%s_%03d-%02d.iajaa", mat_pref, iter_cnt, sol_cnt);
 
@@ -402,20 +411,29 @@ void write_iajaa_matrix(
    }
 
    /* additional matrix format */
+#ifdef IPOPT_HAS_GETENV_S
+   if( getenv_s(NULL, NULL, 0, "IPOPT_WRITE_MAT_MTX") == 0 )
+#else
    if( getenv("IPOPT_WRITE_MAT_MTX") )
+#endif
    {
       /* Write header */
       char mat_name[128];
-      const char* mat_pref;
 
       Index i;
       Index j;
 
-      mat_pref = getenv("IPOPT_WRITE_PREFIX");
-      if( mat_pref == NULL)
+#ifdef IPOPT_HAS_GETENV_S
+      char mat_pref[32];
+      if( getenv_s(NULL, mat_pref, sizeof(mat_pref), "IPOPT_WRITE_PREFIX") != 0 )
+         memcpy(mat_pref, "mat-ipopt", 10);
+#else
+      const char* mat_pref = getenv("IPOPT_WRITE_PREFIX");
+      if( mat_pref == NULL )
       {
          mat_pref = "mat-ipopt";
       }
+#endif
 
       Snprintf(mat_name, 127, "%s_%03d-%02d.mtx", mat_pref, iter_cnt, sol_cnt);
 
