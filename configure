@@ -28158,6 +28158,19 @@ printf "%s\n" "#define IPOPT_HAS_VA_COPY 1" >>confdefs.h
 
 fi
 
+################################
+# Secure C11 library functions #
+################################
+
+ac_fn_check_decl "$LINENO" "fopen_s" "ac_cv_have_decl_fopen_s" "#include <cstdio>
+" "$ac_cxx_undeclared_builtin_options" "CXXFLAGS"
+if test "x$ac_cv_have_decl_fopen_s" = xyes
+then :
+
+printf "%s\n" "#define IPOPT_HAS_FOPEN_S 1" >>confdefs.h
+
+fi
+
 ###########################
 # Random number generator #
 ###########################
@@ -28374,7 +28387,7 @@ else case e in #(
 JAVA_TEST=Test.java
 CLASS_TEST=Test.class
 cat << \EOF > $JAVA_TEST
-/* #line 28377 "configure" */
+/* #line 28390 "configure" */
 public class Test {
 }
 EOF

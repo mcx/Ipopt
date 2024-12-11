@@ -101,6 +101,9 @@
 /* Define to 1 if function feenableexcept is available */
 #undef IPOPT_HAS_FEENABLEEXCEPT
 
+/* Define to 1 if function fopen_s is available */
+#undef IPOPT_HAS_FOPEN_S
+
 /* Define to 1 if HSL is available. */
 #undef IPOPT_HAS_HSL
 

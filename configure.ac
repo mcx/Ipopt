@@ -306,6 +306,14 @@ AC_COIN_CHECK_ISFINITE
 AC_CHECK_DECL([va_copy],[AC_DEFINE([IPOPT_HAS_VA_COPY],[1],
                                    [Define to 1 if va_copy is available])],,[#include <cstdarg>])
 
+################################
+# Secure C11 library functions #
+################################
+
+AC_CHECK_DECL([fopen_s],
+  [AC_DEFINE([IPOPT_HAS_FOPEN_S],[1],[Define to 1 if function fopen_s is available])],,
+  [#include <cstdio>])
+
 ###########################
 # Random number generator #
 ###########################

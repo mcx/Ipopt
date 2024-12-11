@@ -422,7 +422,12 @@ bool FileJournal::Open(
    else
    {
       // open the file on disk
+#ifdef IPOPT_HAS_FOPEN_S
+      if( fopen_s(&file_, fname, fappend ? "a+" : "w+") != 0 )
+         file_ = NULL;
+#else
       file_ = fopen(fname, fappend ? "a+" : "w+");
+#endif
       if( file_ )
       {
          return true;
