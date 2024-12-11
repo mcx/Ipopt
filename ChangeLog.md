@@ -18,6 +18,7 @@ More detailed information about incremental changes can be found in the
 - New option `mumps_mpi_communicator` to specify the MPI communicator when using
   an MPI-enabled build of MUMPS [#790, by Alex Tyler Chapman].
 - Updated build system to current autotools versions; initial support for icx/ifx and flang
+- Removed use of `vsprintf`.
 
 ### 3.14.16 (2024-04-22)
 

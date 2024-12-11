@@ -11,6 +11,10 @@
 #include <cstdio>
 #include <cstring>
 
+#if defined(_MSC_VER) && _MSC_VER < 1900
+#define vsnprintf _vsnprintf
+#endif
+
 namespace Ipopt
 {
 
@@ -509,8 +513,21 @@ void StreamJournal::PrintfImpl(
    DBG_START_METH("StreamJournal::PrintfImpl", 0);
    if( os_ )
    {
-      vsprintf(buffer_, pformat, ap);
-      *os_ << buffer_;
+      int n = vsnprintf(buffer_, sizeof(buffer_), pformat, ap);
+
+      if( n >= (int)sizeof(buffer_) )
+      {
+         char* bigmsg = new char[n+1];
+         vsnprintf(bigmsg, (size_t) n+1, pformat, ap);
+         bigmsg[n] = '\0';
+         *os_ << bigmsg;
+      }
+      else
+      {
+         if( n < 0 )
+            buffer_[sizeof(buffer_)-1] = '\0';
+         *os_ << buffer_;
+      }
       DBG_EXEC(0, *os_ << std::flush);
    }
 }
