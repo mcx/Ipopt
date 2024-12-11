@@ -19,6 +19,7 @@ More detailed information about incremental changes can be found in the
   an MPI-enabled build of MUMPS [#790, by Alex Tyler Chapman].
 - Updated build system to current autotools versions; initial support for icx/ifx and flang
 - Removed use of `vsprintf` and `sprintf`. Added `IpoptData::Append_info_string(std::string,double)`.
+- Removed use of `strcpy`, `strncpy`, `strdup`, and `sscanf`.
 
 ### 3.14.16 (2024-04-22)
 

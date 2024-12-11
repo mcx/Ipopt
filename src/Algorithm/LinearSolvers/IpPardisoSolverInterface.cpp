@@ -406,8 +406,9 @@ bool PardisoSolverInterface::InitializeImpl(
       char* var = getenv("OMP_NUM_THREADS");
       if( var != NULL )
       {
-         sscanf(var, "%d", &num_procs);
-         if( num_procs < 1 )
+         char* endptr;
+         num_procs = strtol(var, &endptr, 10);
+         if( *endptr != '\0' || num_procs < 1 )
          {
             Jnlst().Printf(J_ERROR, J_LINEAR_ALGEBRA,
                            "Invalid value for OMP_NUM_THREADS (\"%s\").\n", var);
@@ -600,18 +601,15 @@ void write_iajaa_matrix(
    {
       /* Write header */
       char mat_name[128];
-      char mat_pref[32];
+      const char* mat_pref;
 
       Index NNZ = ia[N] - 1;
       Index i;
 
-      if( getenv("IPOPT_WRITE_PREFIX") )
+      mat_pref = getenv("IPOPT_WRITE_PREFIX");
+      if( mat_pref == NULL )
       {
-         strcpy(mat_pref, getenv("IPOPT_WRITE_PREFIX"));
-      }
-      else
-      {
-         strcpy(mat_pref, "mat-ipopt");
+         mat_pref = "mat-ipopt";
       }
 
       Snprintf(mat_name, 127, "%s_%03d-%02d.iajaa", mat_pref, iter_cnt, sol_cnt);
@@ -649,18 +647,15 @@ void write_iajaa_matrix(
    {
       /* Write header */
       char mat_name[128];
-      char mat_pref[32];
+      const char* mat_pref;
 
       Index i;
       Index j;
 
-      if( getenv("IPOPT_WRITE_PREFIX") )
+      mat_pref = getenv("IPOPT_WRITE_PREFIX");
+      if( mat_pref == NULL )
       {
-         strcpy(mat_pref, getenv("IPOPT_WRITE_PREFIX"));
-      }
-      else
-      {
-         strcpy(mat_pref, "mat-ipopt");
+         mat_pref = "mat-ipopt";
       }
 
       Snprintf(mat_name, 127, "%s_%03d-%02d.mtx", mat_pref, iter_cnt, sol_cnt);

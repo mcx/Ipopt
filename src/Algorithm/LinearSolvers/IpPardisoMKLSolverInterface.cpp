@@ -360,18 +360,15 @@ void write_iajaa_matrix(
    {
       /* Write header */
       char mat_name[128];
-      char mat_pref[32];
+      const char* mat_pref;
 
       Index NNZ = ia[N] - 1;
       Index i;
 
-      if( getenv("IPOPT_WRITE_PREFIX") )
+      mat_pref = getenv("IPOPT_WRITE_PREFIX");
+      if( mat_pref == NULL )
       {
-         strcpy(mat_pref, getenv("IPOPT_WRITE_PREFIX"));
-      }
-      else
-      {
-         strcpy(mat_pref, "mat-ipopt");
+         mat_pref = "mat-ipopt";
       }
 
       Snprintf(mat_name, 127, "%s_%03d-%02d.iajaa", mat_pref, iter_cnt, sol_cnt);
@@ -409,18 +406,15 @@ void write_iajaa_matrix(
    {
       /* Write header */
       char mat_name[128];
-      char mat_pref[32];
+      const char* mat_pref;
 
       Index i;
       Index j;
 
-      if( getenv("IPOPT_WRITE_PREFIX") )
+      mat_pref = getenv("IPOPT_WRITE_PREFIX");
+      if( mat_pref == NULL)
       {
-         strcpy(mat_pref, getenv("IPOPT_WRITE_PREFIX"));
-      }
-      else
-      {
-         strcpy(mat_pref, "mat-ipopt");
+         mat_pref = "mat-ipopt";
       }
 
       Snprintf(mat_name, 127, "%s_%03d-%02d.mtx", mat_pref, iter_cnt, sol_cnt);
