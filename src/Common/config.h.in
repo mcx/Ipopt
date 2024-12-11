@@ -74,14 +74,8 @@
 /* Define to 1 if you have the <unistd.h> header file. */
 #undef HAVE_UNISTD_H
 
-/* Define to 1 if you have the 'vsnprintf' function. */
-#undef HAVE_VSNPRINTF
-
 /* Define to 1 if windows.h is available. */
 #undef HAVE_WINDOWS_H
-
-/* Define to 1 if you have the '_vsnprintf' function. */
-#undef HAVE__VSNPRINTF
 
 /* Library Visibility Attribute */
 #undef HSLLIB_EXPORT

@@ -19,12 +19,8 @@
 #include <csignal>
 #include <limits>
 
-// The special treatment of vsnprintf on SUN has been suggested by Lou Hafer 2010/07/04
-#if defined(HAVE_VSNPRINTF) && defined(__SUNPRO_CC)
-namespace std
-{
-#include <iso/stdio_c99.h>
-}
+#if defined(_MSC_VER) && _MSC_VER < 1900
+#define vsnprintf _vsnprintf
 #endif
 
 // The following code has been copied from CoinUtils' CoinTime
@@ -313,47 +309,10 @@ int Snprintf(
    ...
 )
 {
-#if defined(HAVE_VSNPRINTF) && defined(__SUNPRO_CC)
-   std::va_list ap;
-#else
    va_list ap;
-#endif
    va_start(ap, format);
    int ret;
-#ifdef IPOPT_HAS_VA_COPY
-   va_list apcopy;
-   va_copy(apcopy, ap);
-# ifdef HAVE_VSNPRINTF
-#  ifdef __SUNPRO_CC
-   ret = std::vsnprintf(str, size, format, apcopy);
-#  else
-   ret = vsnprintf(str, size, format, apcopy);
-#  endif
-# else
-#  ifdef HAVE__VSNPRINTF
-   ret = _vsnprintf(str, size, format, apcopy);
-#  else
-   ret = vsprintf(str, format, apcopy);
-   (void) size;
-#  endif
-# endif
-   va_end(apcopy);
-#else
-# ifdef HAVE_VSNPRINTF
-#  ifdef __SUNPRO_CC
-   ret = std::vsnprintf(str, size, format, ap);
-#  else
    ret = vsnprintf(str, size, format, ap);
-#  endif
-# else
-#  ifdef HAVE__VSNPRINTF
-   ret = _vsnprintf(str, size, format, ap);
-#  else
-   ret = vsprintf(str, format, ap);
-   (void) size;
-#  endif
-# endif
-#endif
    va_end(ap);
    return ret;
 }

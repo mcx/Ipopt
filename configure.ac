@@ -299,13 +299,12 @@ AC_LANG_PUSH(C++)
 
 AC_COIN_CHECK_ISFINITE
 
-#########################
-# va_copy and vsnprintf #
-#########################
+###########
+# va_copy #
+###########
 
 AC_CHECK_DECL([va_copy],[AC_DEFINE([IPOPT_HAS_VA_COPY],[1],
                                    [Define to 1 if va_copy is available])],,[#include <cstdarg>])
-AC_CHECK_FUNCS([vsnprintf _vsnprintf],[break])
 
 ###########################
 # Random number generator #
