@@ -172,11 +172,14 @@ void MumpsSolverInterface::RegisterOptions(
       "Threshold to consider a pivot at zero in detection of linearly dependent constraints with MUMPS.",
       0.0,
       "This is CNTL(3) in MUMPS.", true);
+#ifndef COIN_USE_MUMPS_MPI_H
    roptions->AddIntegerOption(
       "mumps_mpi_communicator",
       "MPI communicator used for matrix operations",
       USE_COMM_WORLD,
-      "This sets the MPI communicator. MPI_COMM_WORLD is the default. Any other value should be the return value from MPI_Comm_c2f.", true);
+      "This sets the MPI communicator. MPI_COMM_WORLD is the default. Any other value should be the return value from MPI_Comm_c2f. "
+      "This option is only available if MUMPS's libseq/mpi.h is not used.", true);
+#endif
 }
 
 /// give name of MUMPS with version info
@@ -217,7 +220,11 @@ bool MumpsSolverInterface::InitializeImpl(
    MUMPS_STRUC_C* mumps_ = static_cast<MUMPS_STRUC_C*>(mumps_ptr_);
 
    Index mpi_comm;
+#ifndef COIN_USE_MUMPS_MPI_H
    options.GetIntegerValue("mumps_mpi_communicator", mpi_comm, prefix);
+#else
+   mpi_comm = USE_COMM_WORLD;
+#endif
    mumps_->comm_fortran = static_cast<int>(mpi_comm);
 
 #ifndef IPOPT_MUMPS_NOMUTEX
