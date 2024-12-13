@@ -92,19 +92,16 @@ MumpsSolverInterface::MumpsSolverInterface()
    DBG_START_METH("MumpsSolverInterface::MumpsSolverInterface()",
                   dbg_verbosity);
 
-   //initialize mumps
-   MUMPS_STRUC_C* mumps_ = static_cast<MUMPS_STRUC_C*>(calloc(1, sizeof(MUMPS_STRUC_C)));
-   mumps_->job = -1; //initialize mumps
-   mumps_->par = 1; //working host for sequential version
-   mumps_->sym = 2; //general symmetric matrix
-
-   mumps_ptr_ = (void*) mumps_;
+   mumps_ptr_ = NULL;
 }
 
 MumpsSolverInterface::~MumpsSolverInterface()
 {
    DBG_START_METH("MumpsSolverInterface::~MumpsSolverInterface()",
                   dbg_verbosity);
+
+   if( mumps_ptr_ == NULL )
+      return;
 
 #ifndef IPOPT_MUMPS_NOMUTEX
    const std::lock_guard<std::mutex> lock(mumps_call_mutex);
@@ -217,27 +214,42 @@ bool MumpsSolverInterface::InitializeImpl(
    options.GetIntegerValue("mumps_scaling", mumps_scaling_, prefix);
    options.GetNumericValue("mumps_dep_tol", mumps_dep_tol_, prefix);
 
-   MUMPS_STRUC_C* mumps_ = static_cast<MUMPS_STRUC_C*>(mumps_ptr_);
-
-   Index mpi_comm;
-#ifndef COIN_USE_MUMPS_MPI_H
-   options.GetIntegerValue("mumps_mpi_communicator", mpi_comm, prefix);
-#else
-   mpi_comm = USE_COMM_WORLD;
-#endif
-   mumps_->comm_fortran = static_cast<int>(mpi_comm);
-
-#ifndef IPOPT_MUMPS_NOMUTEX
-   const std::lock_guard<std::mutex> lock(mumps_call_mutex);
-#endif
-
-   mumps_c(mumps_);
-
    // Reset all private data
    initialized_ = false;
    pivtol_changed_ = false;
    refactorize_ = false;
    have_symbolic_factorization_ = false;
+
+   // allocate and initialize MUMPS, if not done before
+   MUMPS_STRUC_C* mumps_;
+   if( mumps_ptr_ == NULL )
+   {
+      mumps_ = static_cast<MUMPS_STRUC_C*>(calloc(1, sizeof(MUMPS_STRUC_C)));
+
+      mumps_->job = -1; //initialize mumps
+      mumps_->par = 1; //working host for sequential version
+      mumps_->sym = 2; //general symmetric matrix
+
+      Index mpi_comm;
+#ifndef COIN_USE_MUMPS_MPI_H
+      options.GetIntegerValue("mumps_mpi_communicator", mpi_comm, prefix);
+#else
+      mpi_comm = USE_COMM_WORLD;
+#endif
+      mumps_->comm_fortran = static_cast<int>(mpi_comm);
+
+#ifndef IPOPT_MUMPS_NOMUTEX
+      const std::lock_guard<std::mutex> lock(mumps_call_mutex);
+#endif
+
+      mumps_c(mumps_);
+
+      mumps_ptr_ = (void*) mumps_;
+   }
+   else
+   {
+      mumps_ = static_cast<MUMPS_STRUC_C*>(mumps_ptr_);
+   }
 
    if( !warm_start_same_structure_ )
    {
