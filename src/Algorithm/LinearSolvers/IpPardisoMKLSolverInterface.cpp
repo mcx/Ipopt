@@ -407,7 +407,9 @@ void write_iajaa_matrix(
 #ifdef IPOPT_HAS_GETENV_S
       char mat_pref[32];
       if( getenv_s(NULL, mat_pref, sizeof(mat_pref), "IPOPT_WRITE_PREFIX") != 0 )
+      {
          memcpy(mat_pref, "mat-ipopt", 10);
+      }
 #else
       const char* mat_pref = getenv("IPOPT_WRITE_PREFIX");
       if( mat_pref == NULL )
@@ -462,7 +464,9 @@ void write_iajaa_matrix(
 #ifdef IPOPT_HAS_GETENV_S
       char mat_pref[32];
       if( getenv_s(NULL, mat_pref, sizeof(mat_pref), "IPOPT_WRITE_PREFIX") != 0 )
+      {
          memcpy(mat_pref, "mat-ipopt", 10);
+      }
 #else
       const char* mat_pref = getenv("IPOPT_WRITE_PREFIX");
       if( mat_pref == NULL )

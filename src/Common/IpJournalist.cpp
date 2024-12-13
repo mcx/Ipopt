@@ -424,7 +424,9 @@ bool FileJournal::Open(
       // open the file on disk
 #ifdef IPOPT_HAS_FOPEN_S
       if( fopen_s(&file_, fname, fappend ? "a+" : "w+") != 0 )
+      {
          file_ = NULL;
+      }
 #else
       file_ = fopen(fname, fappend ? "a+" : "w+");
 #endif
@@ -530,7 +532,9 @@ void StreamJournal::PrintfImpl(
       else
       {
          if( n < 0 )
+         {
             buffer_[sizeof(buffer_)-1] = '\0';
+         }
          *os_ << buffer_;
       }
       DBG_EXEC(0, *os_ << std::flush);

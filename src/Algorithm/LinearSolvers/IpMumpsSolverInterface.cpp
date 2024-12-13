@@ -101,7 +101,9 @@ MumpsSolverInterface::~MumpsSolverInterface()
                   dbg_verbosity);
 
    if( mumps_ptr_ == NULL )
+   {
       return;
+   }
 
 #ifndef IPOPT_MUMPS_NOMUTEX
    const std::lock_guard<std::mutex> lock(mumps_call_mutex);
