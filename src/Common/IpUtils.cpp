@@ -113,7 +113,7 @@ Number IpRandom01()
 # ifdef IPOPT_HAS_RAND
    return Number(rand()) / Number(RAND_MAX);
 # else
-#  ifdef HAVE_STD__RAND
+#  ifdef IPOPT_HAS_STD__RAND
    return Number(std::rand()) / Number(RAND_MAX);
 #  else
 #   error "don't have function for random number generator"
@@ -130,7 +130,7 @@ void IpResetRandom01()
 # ifdef IPOPT_HAS_RAND
    srand(1);
 # else
-#  ifdef HAVE_STD__RAND
+#  ifdef IPOPT_HAS_STD__RAND
    std::srand(1);
 #  else
 #   error "don't have function for random number generator"

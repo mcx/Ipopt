@@ -328,6 +328,10 @@ AC_CHECK_DECL([drand48],[AC_DEFINE([IPOPT_HAS_DRAND48],[1],
 AC_CHECK_DECL([rand],[AC_DEFINE([IPOPT_HAS_RAND],[1],
                                 [Define to 1 if function rand is available])],,[#include <cstdlib>])
 
+AC_COIN_CHECK_NAMESPACE_DECL([std::srand],[1],
+  [AC_DEFINE([IPOPT_HAS_STD__RAND],[1],[Define to 1 if function std::rand is available])],[],
+  [#include <cstdlib>])
+
 ##################
 # feenableexcept #
 ##################
