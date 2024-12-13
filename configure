@@ -28217,6 +28217,20 @@ printf "%s\n" "#define IPOPT_HAS_FEENABLEEXCEPT 1" >>confdefs.h
 
 fi
 
+#############
+# sigaction #
+#############
+
+as_ac_Symbol=`printf "%s\n" "ac_cv_have_decl_sigaction(int, const struct sigaction*, struct sigaction*)" | sed "$as_sed_sh"`
+ac_fn_check_decl "$LINENO" "sigaction(int, const struct sigaction*, struct sigaction*)" "$as_ac_Symbol" "#include <csignal>
+" "$ac_cxx_undeclared_builtin_options" "CXXFLAGS"
+if eval test \"x\$"$as_ac_Symbol"\" = x"yes"
+then :
+
+printf "%s\n" "#define IPOPT_HAS_SIGACTION 1" >>confdefs.h
+
+fi
+
 ###################################################
 # Check if user wants inexact algorithm available #
 ###################################################
@@ -28398,7 +28412,7 @@ else case e in #(
 JAVA_TEST=Test.java
 CLASS_TEST=Test.class
 cat << \EOF > $JAVA_TEST
-/* #line 28401 "configure" */
+/* #line 28415 "configure" */
 public class Test {
 }
 EOF

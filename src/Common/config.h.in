@@ -126,6 +126,9 @@
 /* Define to 1 if function rand is available */
 #undef IPOPT_HAS_RAND
 
+/* Define to 1 if function sigaction is available */
+#undef IPOPT_HAS_SIGACTION
+
 /* Define to 1 if the Spral package is available */
 #undef IPOPT_HAS_SPRAL
 

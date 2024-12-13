@@ -231,7 +231,7 @@ bool RegisterInterruptHandler(
    handle_interrupt_ = handle_interrupt;
    interrupt_flag_ = interrupt_flag;
 
-#ifdef _POSIX_C_SOURCE
+#ifdef IPOPT_HAS_SIGACTION
    struct sigaction sa;
    sa.sa_handler = &sighandler;
    sa.sa_flags = SA_RESTART;
@@ -245,13 +245,11 @@ bool RegisterInterruptHandler(
       return false;
    }
 
-#elif defined(_WIN32)
+#else
    signal(SIGINT, sighandler);
    signal(SIGTERM, sighandler);
    signal(SIGABRT, sighandler);
 
-#else
-   return false;
 #endif
 
    return true;
@@ -264,7 +262,7 @@ bool UnregisterInterruptHandler(void)
       return false;
    }
 
-#ifdef _POSIX_C_SOURCE
+#ifdef IPOPT_HAS_SIGACTION
    struct sigaction sa;
    sa.sa_handler = SIG_DFL;
    sa.sa_flags = SA_RESTART;
@@ -278,13 +276,11 @@ bool UnregisterInterruptHandler(void)
       return false;
    }
 
-#elif defined(_WIN32)
+#else
    signal(SIGINT, SIG_DFL);
    signal(SIGTERM, SIG_DFL);
    signal(SIGABRT, SIG_DFL);
 
-#else
-   return false;
 #endif
 
    registered_handler = false;

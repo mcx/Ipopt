@@ -336,6 +336,14 @@ AC_CHECK_DECL([feenableexcept],
   [AC_DEFINE([IPOPT_HAS_FEENABLEEXCEPT],[1],[Define to 1 if function feenableexcept is available])],,
   [#include <cfenv>])
 
+#############
+# sigaction #
+#############
+
+AC_CHECK_DECL([sigaction(int, const struct sigaction*, struct sigaction*)],
+  [AC_DEFINE([IPOPT_HAS_SIGACTION],[1],[Define to 1 if function sigaction is available])],,
+  [#include <csignal>])
+
 ###################################################
 # Check if user wants inexact algorithm available #
 ###################################################
