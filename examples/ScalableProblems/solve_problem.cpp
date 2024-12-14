@@ -203,7 +203,7 @@ int main(
    app->Options()->SetNumericValue("max_wall_time", runtime);
 #endif
 
-   Ipopt::RegisterInterruptHandler(NULL, &tnlp->interrupted_);
+   Ipopt::RegisterInterruptHandler(NULL, &tnlp->interrupted_, 5);
 
    status = app->OptimizeTNLP(GetRawPtr(tnlp));
 

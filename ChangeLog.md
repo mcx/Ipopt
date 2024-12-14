@@ -7,20 +7,20 @@ More detailed information about incremental changes can be found in the
 
 ## 3.14
 
-### 3.14.17 (2024-xx-yy)
+### 3.14.17 (2024-12-14)
 
 - Added `Ipopt::RegisterInterruptHandler()` and `Ipopt::UnregisterInterruptHandler()`
   to `IpUtils.hpp` to wrap handling of interrupt signals.
   Added parameter `checkinterrupt` (default false) to `AmplTNLP` constructor
   to enable check for interrupt signal in `intermediate_callback`.
-- The `ipopt` and `ipopt_sens` executables can now be interrupted by SIGINT/SIGHUP
-  (POSIX systems) or SIGINT/SIGTERM/SIGABRT (Windows systems).
+- The `ipopt` and `ipopt_sens` executables and scalable problems C++ examples can now be
+  interrupted by SIGINT/SIGHUP (systems with sigaction()) or SIGINT/SIGTERM/SIGABRT (Windows systems).
 - New option `mumps_mpi_communicator` to specify the MPI communicator when using
   an MPI-enabled build of MUMPS [#790, by Alex Tyler Chapman].
 - Updated build system to current autotools versions; initial support for icx/ifx and flang
 - Removed use of `vsprintf` and `sprintf`. Added `IpoptData::Append_info_string(std::string,double)`.
 - Removed use of `strcpy`, `strncpy`, `strdup`, and `sscanf`.
-- Use `fopen_s` and `getenv_s` instead of `fopen` and `getenv`, respectively, if available.
+- Using `fopen_s` and `getenv_s` instead of `fopen` and `getenv`, respectively, if available.
 - Added workaround for using Pardiso from Intel MKL 2025.0.1 [#799].
   This requires checking the MKL version at runtime and can be disabled by defining `IPOPT_NO_MKLVERSIONCHECK`.
 
