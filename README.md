@@ -4,7 +4,7 @@ Ipopt
 Introduction
 ------------
 
-Ipopt (Interior Point OPTimizer, pronounced eye-pea-Opt) is a software package for large-scale [nonlinear optimization](http://wiki.mcs.anl.gov/NEOS/index.php/Nonlinear_Programming_FAQ).
+Ipopt (Interior Point OPTimizer, pronounced eye-pea-Opt) is a software package for large-scale [nonlinear optimization](https://en.wikipedia.org/wiki/Nonlinear_programming).
 It is designed to find (local) solutions of mathematical optimization problems of the form
 
 $$\begin{align}
